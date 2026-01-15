@@ -1,0 +1,46 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "Nancy",
+      "course": "Journalism",
+      "year": 6
+    },
+    {
+      "id": 2,
+      "name": "Jane",
+      "course": "Calisthenics",
+      "year": 4
+    },
+    {
+      "id": 3,
+      "name": "Max",
+      "course": "SKateboarding",
+      "year": 4
+    },
+    {
+      "id": 4,
+      "name": "Erica",
+      "course": "Quantum Physics",
+      "year": 2
+    },
+    {
+      "id": 5,
+      "name": "Robin",
+      "course": "Electronic Communications",
+      "year": 6
+    },
+    {
+      "id": 6,
+      "name": "Vicki",
+      "course": "Nurse",
+      "year": 6
+    },
+    {
+      "id": 7,
+      "name": "Tammy put",
+      "course": "Cheerleading put",
+      "year": 67
+    }
+  ]
+}
