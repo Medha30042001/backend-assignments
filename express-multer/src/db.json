@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Medha Adepu",
+    "email": "medha@gmail.com",
+    "password": "medha1234",
+    "profilePic": "https://res.cloudinary.com/djtxl1tsc/image/upload/v1768917382/pll4mqsaafo0uherkx1j.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Medha Adepu",
+    "email": "medha123@gmail.com",
+    "password": "medha1234",
+    "profilePic": "https://res.cloudinary.com/djtxl1tsc/image/upload/v1768917430/vlgyg33oplalgbmtvdon.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Medha Adepu",
+    "email": "medha12@gmail.com",
+    "password": "medha123",
+    "profilePic": "https://res.cloudinary.com/djtxl1tsc/image/upload/v1768917517/lhvp1ezce8kh5twlntrn.jpg"
+  }
+]
