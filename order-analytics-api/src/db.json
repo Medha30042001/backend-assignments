@@ -1,4 +1,84 @@
 {
-    "products" : [],
-    "orders" : []
+  "products": [
+    {
+      "id": 1769009476691,
+      "name": "Mobile 1",
+      "price": 20000,
+      "stock": 12
+    },
+    {
+      "id": 1769009498134,
+      "name": "Mobile 2",
+      "price": 30000,
+      "stock": 11
+    },
+    {
+      "id": 1769009506977,
+      "name": "Mobile 3",
+      "price": 20000,
+      "stock": 10
+    },
+    {
+      "id": 1769009526826,
+      "name": "Mobile 4",
+      "price": 30000,
+      "stock": 13
+    },
+    {
+      "id": 1769009532338,
+      "name": "Mobile 5",
+      "price": 20000,
+      "stock": 9
+    }
+  ],
+  "orders": [
+    {
+      "id": 1769009811543,
+      "productId": 1769009476691,
+      "quantity": 3,
+      "totalAmount": 60000,
+      "status": "placed",
+      "createdAt": "2026-01-21"
+    },
+    {
+      "id": 1769009830683,
+      "productId": 1769009498134,
+      "quantity": 2,
+      "totalAmount": 60000,
+      "status": "cancelled",
+      "createdAt": "2026-01-21"
+    },
+    {
+      "id": 1769009851493,
+      "productId": 1769009498134,
+      "quantity": 4,
+      "totalAmount": 120000,
+      "status": "delivered",
+      "createdAt": "2026-01-21"
+    },
+    {
+      "id": 1769009888148,
+      "productId": 1769009506977,
+      "quantity": 5,
+      "totalAmount": 100000,
+      "status": "shipped",
+      "createdAt": "2026-01-21"
+    },
+    {
+      "id": 1769009895581,
+      "productId": 1769009526826,
+      "quantity": 2,
+      "totalAmount": 60000,
+      "status": "placed",
+      "createdAt": "2026-01-21"
+    },
+    {
+      "id": 1769009904866,
+      "productId": 1769009532338,
+      "quantity": 6,
+      "totalAmount": 120000,
+      "status": "placed",
+      "createdAt": "2026-01-21"
+    }
+  ]
 }

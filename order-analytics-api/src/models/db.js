@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 
-const DB_FILE = "./db.json";
+const DB_FILE = "./src/db.json";
 
 export const readDB = async () => {
   const raw = await fs.readFile(DB_FILE, "utf-8");

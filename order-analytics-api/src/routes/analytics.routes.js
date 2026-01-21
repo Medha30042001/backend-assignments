@@ -1,5 +1,5 @@
 import express from "express";
-import { readDB } from "../models/db";
+import { readDB } from "../models/db.js";
 
 const router = express.Router();
 
@@ -53,12 +53,12 @@ router.get("/total-revenue/:productId", async (req, res) => {
   try {
     const db = await readDB();
     const pId = Number(req.params.productId);
-    const product = db.product.find((p) => p.id === pId);
+    const product = db.products.find((p) => p.id === pId);
     if (!product) return res.status(404).json({ error: "Product not found" });
 
     const revenue = db.orders
       .filter((o) => o.productId === product.id && o.status !== "cancelled")
-      .reduce((sum, o) => sum + o.quality * product.price, 0);
+      .reduce((sum, o) => sum + o.quantity * product.price, 0);
 
     res.status(200).json({
       productId: product.id,
@@ -76,8 +76,8 @@ router.get("/alltotalrevenue", async (req, res) => {
     const totalRevenue = db.orders
       .filter((o) => o.status !== "cancelled")
       .reduce((sum, o) => {
-        const product = db.products.find((p) => pid === o.productId);
-        return sum + o.quality * product.price;
+        const product = db.products.find((p) => p.id === o.productId);
+        return sum + o.quantity * product.price;
       }, 0);
 
     res.status(200).json({

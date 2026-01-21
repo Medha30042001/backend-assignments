@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
     const product = db.products.find((p) => p.id === productId);
 
     if (!product) {
-      return res.status(404).json({ error: "Product not found" });
+      return res.status(404).json({ error: "Order not found" });
     }
 
     if (product.stock === 0 || quantity > product.stock) {
@@ -70,7 +70,7 @@ router.delete("/:orderId", async (req, res) => {
     order.status = "cancelled";
 
     const today = new Date().toISOString().split("T")[0];
-    if (orders.createdAt !== today) {
+    if (order.createdAt !== today) {
       return res.status(400).json({ error: "Cannot cancel anymore" });
     }
 
@@ -96,7 +96,7 @@ router.patch("/change-status/:orderId", async (req, res) => {
         const idToPatch = Number(req.params.orderId);
         const order = db.orders.find(o => o.id === idToPatch);
 
-        if(!order) {return res.status(4040).json({error : 'Order not found'})};
+        if(!order) {return res.status(404).json({error : 'Order not found'})};
 
         if(order.status === 'cancelled' || order.status === 'delivered'){
             return res.status(400).json({error : 'Cannot change order status'});
