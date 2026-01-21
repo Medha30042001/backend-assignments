@@ -1,15 +1,15 @@
 import express from "express";
-import { readDB } from "../models/db";
+import { readDB, writeDB } from "../models/db.js";
 
 const router = express.Router();
 
-router.push("/", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const db = await readDB();
     const products = db.products;
     const {name, price, stock} = req.body;
 
-    if(!name || !price || !stock){
+    if(!name || price <= 0 || stock < 0){
         return res.status(400).json({ error : 'Invalid product' });
     }
 
@@ -21,12 +21,14 @@ router.push("/", async (req, res) => {
     };
 
     db.products.push(newProduct);
-    res.status(200).json({
+    await writeDB(db);
+
+    res.status(201).json({
         message : 'Product created',
         product : newProduct
     })
   } catch (error) {
-    res.staatus(500).json({
+    res.status(500).json({
         error : 'Server error'
     })
   }
