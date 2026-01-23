@@ -1,0 +1,103 @@
+select COUNT(*) as total_students from students;
+| total_students |
+| -------------- |
+| 22             |
+
+select avg(age) as avg_age from students;
+| avg_age             |
+| ------------------- |
+| 19.5454545454545455 |
+
+select min(age) as min_age from students;
+| min_age |
+| ------- |
+| 14      |
+
+select max(age) as max_age from students;
+| max_age |
+| ------- |
+| 26      |
+
+select course, count(*) as student_count from students group by course
+| course          | student_count |
+| --------------- | ------------- |
+| psychology      | 3             |
+| fashion         | 3             |
+| book keeping    | 1             |
+| quantum physics | 1             |
+| politics        | 3             |
+| business        | 1             |
+| electronics     | 3             |
+| cosmetology     | 3             |
+| dance           | 3             |
+| piano           | 1             |
+
+select count(*) as age_above_20 from students where age > 20
+| age_above_20 |
+| ------------ |
+| 8            |
+
+------------------------------------------------------------
+
+select course, count(*) from students group by course
+| course          | count |
+| --------------- | ----- |
+| psychology      | 3     |
+| fashion         | 3     |
+| book keeping    | 1     |
+| quantum physics | 1     |
+| politics        | 3     |
+| business        | 1     |
+| electronics     | 3     |
+| cosmetology     | 3     |
+| dance           | 3     |
+| piano           | 1     |
+
+select course, count(*) from students group by course having count(*) > 1
+| course      | count |
+| ----------- | ----- |
+| psychology  | 3     |
+| fashion     | 3     |
+| politics    | 3     |
+| electronics | 3     |
+| cosmetology | 3     |
+| dance       | 3     |
+
+select course, count(*) from students group by course order by count(*) desc
+| course          | count |
+| --------------- | ----- |
+| electronics     | 3     |
+| cosmetology     | 3     |
+| dance           | 3     |
+| psychology      | 3     |
+| politics        | 3     |
+| fashion         | 3     |
+| piano           | 1     |
+| book keeping    | 1     |
+| quantum physics | 1     |
+| business        | 1     |
+
+---------------------------------------------------------------
+
+select * from students order by created_at desc limit 3
+| id | name | email          | age | course      | created_at                 |
+| -- | ---- | -------------- | --- | ----------- | -------------------------- |
+| 24 | Will | will@gmail.com | 16  | cosmetology | 2026-01-23 17:11:50.285517 |
+| 23 | Vera | vera@gmail.com | 15  | cosmetology | 2026-01-23 17:11:32.657586 |
+| 22 | Uday | uday@gmail.com | 26  | dance       | 2026-01-23 17:11:09.584239 |
+
+select * from students order by age desc limit 5
+| id | name   | email            | age | course       | created_at                 |
+| -- | ------ | ---------------- | --- | ------------ | -------------------------- |
+| 22 | Uday   | uday@gmail.com   | 26  | dance        | 2026-01-23 17:11:09.584239 |
+| 10 | Jafaar | jafaar@gmail.com | 25  | dance        | 2026-01-20 18:22:21.099469 |
+| 9  | Ira    | ira@gmail.com    | 24  | book keeping | 2026-01-20 18:18:26.819154 |
+| 20 | Sam    | sam@gmail.com    | 23  | psychology   | 2026-01-23 17:09:31.556126 |
+| 2  | Bonnie | bonnie@gmail.com | 22  | psychology   | 2026-01-20 18:12:56.333215 |
+
+select * from students where course = 'electronics' order by age desc
+| id | name   | email            | age | course      | created_at                 |
+| -- | ------ | ---------------- | --- | ----------- | -------------------------- |
+| 17 | Olivia | olivia@gmail.com | 22  | electronics | 2026-01-23 17:08:31.633344 |
+| 18 | Quinn  | quinn@gmail.com  | 20  | electronics | 2026-01-23 17:08:51.827932 |
+| 4  | Dustin | dustin@gmail.com | 19  | electronics | 2026-01-20 18:13:09.301456 |
