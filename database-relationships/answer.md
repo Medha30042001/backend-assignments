@@ -13,6 +13,19 @@ There are generally 3 types of relationships in relational databases, and they a
 One to one relationships (1 : 1) -
  One column in table A is linked to exacty one column in table B. A real life example would be a user having only one user profile, and the user profile only belongs to that one user. 
  Another example being one country has only one capital, and vice versa.
+
+ user
+ - user_id (PK)
+ - email 
+ - password
+
+ user_profiles
+ - profile_id (PK)
+ - user_id (FK)
+ - address 
+ - phone
+
+ Here, the user_id is the foreign key in the user_profiles table
 ![One to one](images/oneToOne.png)
 
 One to many (1 : N) - 
