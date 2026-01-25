@@ -1,0 +1,227 @@
+-- Create Tables
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name TEXT,
+  email TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+output :
+Success. No rows returned
+
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  user_id int,
+  amount int,
+  status TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+output :
+Success. No rows returned
+
+-- Insert Data
+
+INSERT INTO users(name, email) VALUES
+('Mike', 'mike@gmail.com'),
+('Lucas', 'lucas@gmail.com'),
+('Dustin', 'dustin@gmail.com'),
+('Will', 'will@gmail.com'),
+('Max', 'max@gmail.com'),
+('Steve', 'steve@gmail.com');
+
+output :
+Success. No rows returned
+
+INSERT INTO orders(user_id, amount, status) VALUES 
+(4, 1000, 'shipped'),
+(2, 3000, 'shipped'),
+(5, 2000, 'ordered'),
+(1, 4000, 'shipped'),
+(3, 1000, 'ordered'),
+(4, 3000, 'delivered'),
+(6, 4000, 'ordered'),
+(1, 1000, 'cancelled'),
+(3, 6000, 'ordered'),
+(2, 3000, 'ordered'),
+(5, 2000, 'delivered');
+
+output :
+Success. No rows returned
+
+-- Read Data
+
+SELECT * FROM users;
+
+output : 
+| id | name   | email             | created_at                 |
+| -- | ------ | ----------------- | -------------------------- |
+| 1  | Mike   | mike@gmail.com    | 2026-01-24 13:53:26.463534 |
+| 2  | Lucas  | lucas@gmail.com   | 2026-01-24 13:53:26.463534 |
+| 3  | Dustin | dustin@gmail.com  | 2026-01-24 13:53:26.463534 |
+| 5  | Max    | max@gmail.com     | 2026-01-24 13:53:26.463534 |
+| 6  | Steve  | steve@gmail.com   | 2026-01-24 13:53:26.463534 |
+| 4  | Will   | will@gmail.com | 2026-01-24 13:53:26.463534 |
+
+SELECT * FROM orders;
+
+output : 
+| id | user_id | amount | status    | created_at                 |
+| -- | ------- | ------ | --------- | -------------------------- |
+| 1  | 4       | 1000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 2  | 2       | 3000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 4  | 1       | 4000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 6  | 4       | 3000   | delivered | 2026-01-24 15:12:58.039799 |
+| 7  | 6       | 4000   | ordered   | 2026-01-24 15:12:58.039799 |
+| 8  | 1       | 1000   | cancelled | 2026-01-24 15:12:58.039799 |
+| 9  | 3       | 6000   | ordered   | 2026-01-24 15:12:58.039799 |
+| 3  | 5       | 2000   | delivered | 2026-01-24 15:12:58.039799 |
+| 11 | 5       | 2000   | delivered | 2026-01-24 15:12:58.039799 |
+| 10 | 2       | 5000   | ordered   | 2026-01-24 15:12:58.039799 |
+| 5  | 2       | 2000   | delivered | 2026-01-24 15:12:58.039799 |
+
+SELECT * FROM orders WHERE user_id = 4;
+
+output : 
+| id | user_id | amount | status    | created_at                 |
+| -- | ------- | ------ | --------- | -------------------------- |
+| 1  | 4       | 1000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 6  | 4       | 3000   | delivered | 2026-01-24 15:12:58.039799 |
+
+SELECT u.* FROM users u JOIN orders o ON o.user_id = u.id GROUP BY u.id HAVING COUNT(o.id) > 1;
+
+output : 
+| id | name  | email             | created_at                 |
+| -- | ----- | ----------------- | -------------------------- |
+| 4  | Will  | will@gmail.com | 2026-01-24 13:53:26.463534 |
+| 2  | Lucas | lucas@gmail.com   | 2026-01-24 13:53:26.463534 |
+| 5  | Max   | max@gmail.com     | 2026-01-24 13:53:26.463534 |
+| 1  | Mike  | mike@gmail.com    | 2026-01-24 13:53:26.463534 |
+| 3  | Dustin| dustin@gmail.com  | 2026-01-24 13:53:26.463534 |
+
+SELECT user_id, SUM(amount) FROM orders GROUP BY user_id;
+
+output : 
+| user_id | sum  |
+| ------- | ---- |
+| 3       | 6000 |
+| 5       | 4000 |
+| 4       | 4000 |
+| 6       | 4000 |
+| 2       | 8000 |
+| 1       | 5000 |
+
+-- Update Data
+
+UPDATE users SET email = 'william@gmail.com' WHERE id = 4;
+
+output :
+Success. No rows returned
+
+| id | name   | email             | created_at                 |
+| -- | ------ | ----------------- | -------------------------- |
+| 1  | Mike   | mike@gmail.com    | 2026-01-24 13:53:26.463534 |
+| 2  | Lucas  | lucas@gmail.com   | 2026-01-24 13:53:26.463534 |
+| 3  | Dustin | dustin@gmail.com  | 2026-01-24 13:53:26.463534 |
+| 5  | Max    | max@gmail.com     | 2026-01-24 13:53:26.463534 |
+| 6  | Steve  | steve@gmail.com   | 2026-01-24 13:53:26.463534 |
+| 4  | Will   | william@gmail.com | 2026-01-24 13:53:26.463534 |
+
+UPDATE orders SET status = 'delivered' WHERE user_id = 5;
+
+output :
+Success. No rows returned
+
+| id | user_id | amount | status    | created_at                 |
+| -- | ------- | ------ | --------- | -------------------------- |
+| 1  | 4       | 1000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 2  | 2       | 3000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 4  | 1       | 4000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 6  | 4       | 3000   | delivered | 2026-01-24 15:12:58.039799 |
+| 7  | 6       | 4000   | ordered   | 2026-01-24 15:12:58.039799 |
+| 8  | 1       | 1000   | cancelled | 2026-01-24 15:12:58.039799 |
+| 9  | 3       | 6000   | ordered   | 2026-01-24 15:12:58.039799 |
+| 3  | 5       | 2000   | delivered | 2026-01-24 15:12:58.039799 |
+| 11 | 5       | 2000   | delivered | 2026-01-24 15:12:58.039799 |
+| 10 | 2       | 3000   | ordered   | 2026-01-24 15:12:58.039799 |
+| 5  | 3       | 1000   | delivered | 2026-01-24 15:12:58.039799 |
+
+UPDATE orders SET amount = 5000 WHERE id = 10
+
+output :
+Success. No rows returned
+
+| id | user_id | amount | status    | created_at                 |
+| -- | ------- | ------ | --------- | -------------------------- |
+| 1  | 4       | 1000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 2  | 2       | 3000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 4  | 1       | 4000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 6  | 4       | 3000   | delivered | 2026-01-24 15:12:58.039799 |
+| 7  | 6       | 4000   | ordered   | 2026-01-24 15:12:58.039799 |
+| 8  | 1       | 1000   | cancelled | 2026-01-24 15:12:58.039799 |
+| 9  | 3       | 6000   | ordered   | 2026-01-24 15:12:58.039799 |
+| 3  | 5       | 2000   | delivered | 2026-01-24 15:12:58.039799 |
+| 11 | 5       | 2000   | delivered | 2026-01-24 15:12:58.039799 |
+| 10 | 2       | 5000   | ordered   | 2026-01-24 15:12:58.039799 |
+| 5  | 3       | 1000   | delivered | 2026-01-24 15:12:58.039799 |
+
+-- Delete Data
+
+DELETE FROM orders WHERE id = 5
+
+output :
+Success. No rows returned
+
+| id | user_id | amount | status    | created_at                 |
+| -- | ------- | ------ | --------- | -------------------------- |
+| 1  | 4       | 1000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 2  | 2       | 3000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 4  | 1       | 4000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 6  | 4       | 3000   | delivered | 2026-01-24 15:12:58.039799 |
+| 7  | 6       | 4000   | ordered   | 2026-01-24 15:12:58.039799 |
+| 8  | 1       | 1000   | cancelled | 2026-01-24 15:12:58.039799 |
+| 9  | 3       | 6000   | ordered   | 2026-01-24 15:12:58.039799 |
+| 3  | 5       | 2000   | delivered | 2026-01-24 15:12:58.039799 |
+| 11 | 5       | 2000   | delivered | 2026-01-24 15:12:58.039799 |
+| 10 | 2       | 5000   | ordered   | 2026-01-24 15:12:58.039799 |
+
+DELETE FROM orders WHERE user_id = 2
+
+output : 
+Success. No rows returned
+
+| id | user_id | amount | status    | created_at                 |
+| -- | ------- | ------ | --------- | -------------------------- |
+| 1  | 4       | 1000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 4  | 1       | 4000   | shipped   | 2026-01-24 15:12:58.039799 |
+| 6  | 4       | 3000   | delivered | 2026-01-24 15:12:58.039799 |
+| 7  | 6       | 4000   | ordered   | 2026-01-24 15:12:58.039799 |
+| 8  | 1       | 1000   | cancelled | 2026-01-24 15:12:58.039799 |
+| 9  | 3       | 6000   | ordered   | 2026-01-24 15:12:58.039799 |
+| 3  | 5       | 2000   | delivered | 2026-01-24 15:12:58.039799 |
+| 11 | 5       | 2000   | delivered | 2026-01-24 15:12:58.039799 |
+
+DELETE FROM users WHERE id = 1
+
+output : 
+Error: Failed to run sql query: 
+ERROR: 23503: update or delete on table "users" violates 
+foreign key constraint "orders_user_id_fkey" on table "orders" 
+DETAIL: Key (id)=(1) is still referenced from table "orders".
+
+
+The row does not get deleted, because the user is still referenced 
+in the orders table.
+
+Conceptual Question -
+
+-- Why should orders not be stored inside the users table?
+Fundamentally, orders and users are two different entities. Even if 
+teh orders are stored in the users table, it would not look as organized.
+This is because, one user can place multiple orders, so there 
+would be multiple entries for one user's order in the orders column. 
+It would be really difficult to manage and fetch information about individual
+orders from such a table. Which is why making two different tables for 
+users and orders is the better option.
